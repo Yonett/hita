@@ -28,13 +28,38 @@
         /// </summary>
         private void InitializeComponent()
         {
+            glControl1 = new OpenTK.GLControl.GLControl();
+            treeView1 = new TreeView();
             SuspendLayout();
+            // 
+            // glControl1
+            // 
+            glControl1.API = OpenTK.Windowing.Common.ContextAPI.OpenGL;
+            glControl1.APIVersion = new Version(3, 3, 0, 0);
+            glControl1.Flags = OpenTK.Windowing.Common.ContextFlags.Default;
+            glControl1.IsEventDriven = true;
+            glControl1.Location = new Point(397, 44);
+            glControl1.Name = "glControl1";
+            glControl1.Profile = OpenTK.Windowing.Common.ContextProfile.Core;
+            glControl1.SharedContext = null;
+            glControl1.Size = new Size(775, 705);
+            glControl1.TabIndex = 0;
+            // 
+            // treeView1
+            // 
+            treeView1.Location = new Point(12, 12);
+            treeView1.Name = "treeView1";
+            treeView1.Size = new Size(356, 562);
+            treeView1.TabIndex = 1;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(784, 561);
+            ClientSize = new Size(1184, 761);
+            Controls.Add(treeView1);
+            Controls.Add(glControl1);
+            MinimumSize = new Size(800, 600);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "hita";
@@ -42,5 +67,8 @@
         }
 
         #endregion
+
+        private OpenTK.GLControl.GLControl glControl1;
+        private TreeView treeView1;
     }
 }
