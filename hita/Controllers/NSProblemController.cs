@@ -6,7 +6,6 @@ namespace hita.Controllers
     public class NSProblemController
     {
         private readonly NSProblem _nsProblem = new NSProblem();
-        private readonly MainForm Form;
         public void SetParams()
         {
             _nsProblem.Gr = 1e+3;
@@ -28,9 +27,6 @@ namespace hita.Controllers
             _nsProblem.Solve();
         }
 
-        public NSProblemController(MainForm Form)
-        {
-            this.Form = Form;
-        }
+        public NSProblemController() { }
     }
 }

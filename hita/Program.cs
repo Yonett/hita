@@ -14,13 +14,8 @@ namespace hita
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
 
-            //problemController.SetParams();
-            //problemController.SolveProblem();
-
             ApplicationConfiguration.Initialize();
-            MainForm Form = new MainForm();
-            NSProblemController problemController = new NSProblemController(Form);
-            Application.Run(Form);
+            Application.Run(new MainForm());
         }
     }
 }
