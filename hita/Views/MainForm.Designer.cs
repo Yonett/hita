@@ -109,6 +109,7 @@
             // 
             glControl.API = OpenTK.Windowing.Common.ContextAPI.OpenGL;
             glControl.APIVersion = new Version(3, 3, 0, 0);
+            glControl.BackColor = SystemColors.Control;
             glControl.Flags = OpenTK.Windowing.Common.ContextFlags.Default;
             glControl.IsEventDriven = true;
             glControl.Location = new Point(400, 0);
@@ -117,6 +118,7 @@
             glControl.SharedContext = null;
             glControl.Size = new Size(784, 761);
             glControl.TabIndex = 0;
+            glControl.Paint += glControl_Paint;
             // 
             // settingsPanel
             // 
@@ -219,7 +221,11 @@
             // 
             // TemperatureLabel
             // 
+            TemperatureLabel.BackColor = Color.FromArgb(41, 128, 185);
+            TemperatureLabel.BorderStyle = BorderStyle.FixedSingle;
+            TemperatureLabel.Cursor = Cursors.Hand;
             TemperatureLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            TemperatureLabel.ForeColor = Color.White;
             TemperatureLabel.Location = new Point(0, 0);
             TemperatureLabel.Margin = new Padding(0);
             TemperatureLabel.Name = "TemperatureLabel";
@@ -227,10 +233,15 @@
             TemperatureLabel.TabIndex = 3;
             TemperatureLabel.Text = "T";
             TemperatureLabel.TextAlign = ContentAlignment.MiddleCenter;
+            TemperatureLabel.Click += TemperatureLabel_Click;
             // 
             // CurrentLabel
             // 
-            CurrentLabel.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            CurrentLabel.BackColor = Color.FromArgb(149, 165, 166);
+            CurrentLabel.BorderStyle = BorderStyle.FixedSingle;
+            CurrentLabel.Cursor = Cursors.Hand;
+            CurrentLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            CurrentLabel.ForeColor = Color.White;
             CurrentLabel.Location = new Point(70, 0);
             CurrentLabel.Margin = new Padding(0);
             CurrentLabel.Name = "CurrentLabel";
@@ -238,10 +249,15 @@
             CurrentLabel.TabIndex = 4;
             CurrentLabel.Text = "ψ";
             CurrentLabel.TextAlign = ContentAlignment.MiddleCenter;
+            CurrentLabel.Click += CurrentLabel_Click;
             // 
             // EddyLabel
             // 
-            EddyLabel.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            EddyLabel.BackColor = Color.FromArgb(149, 165, 166);
+            EddyLabel.BorderStyle = BorderStyle.FixedSingle;
+            EddyLabel.Cursor = Cursors.Hand;
+            EddyLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            EddyLabel.ForeColor = Color.White;
             EddyLabel.Location = new Point(140, 0);
             EddyLabel.Margin = new Padding(0);
             EddyLabel.Name = "EddyLabel";
@@ -249,10 +265,15 @@
             EddyLabel.TabIndex = 5;
             EddyLabel.Text = "ω";
             EddyLabel.TextAlign = ContentAlignment.MiddleCenter;
+            EddyLabel.Click += EddyLabel_Click;
             // 
             // VxLabel
             // 
-            VxLabel.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            VxLabel.BackColor = Color.FromArgb(149, 165, 166);
+            VxLabel.BorderStyle = BorderStyle.FixedSingle;
+            VxLabel.Cursor = Cursors.Hand;
+            VxLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            VxLabel.ForeColor = Color.White;
             VxLabel.Location = new Point(210, 0);
             VxLabel.Margin = new Padding(0);
             VxLabel.Name = "VxLabel";
@@ -260,10 +281,15 @@
             VxLabel.TabIndex = 6;
             VxLabel.Text = "Vx";
             VxLabel.TextAlign = ContentAlignment.MiddleCenter;
+            VxLabel.Click += VxLabel_Click;
             // 
             // VyLabel
             // 
-            VyLabel.Font = new Font("Segoe UI", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            VyLabel.BackColor = Color.FromArgb(149, 165, 166);
+            VyLabel.BorderStyle = BorderStyle.FixedSingle;
+            VyLabel.Cursor = Cursors.Hand;
+            VyLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            VyLabel.ForeColor = Color.White;
             VyLabel.Location = new Point(280, 0);
             VyLabel.Margin = new Padding(0);
             VyLabel.Name = "VyLabel";
@@ -271,6 +297,7 @@
             VyLabel.TabIndex = 7;
             VyLabel.Text = "Vy";
             VyLabel.TextAlign = ContentAlignment.MiddleCenter;
+            VyLabel.Click += VyLabel_Click;
             // 
             // isolinesNumberPanel
             // 
