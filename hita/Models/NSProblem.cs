@@ -23,8 +23,6 @@ namespace hita.Models
 
         public double WParam { get; set; }
 
-        private string Folder { get; set; } = String.Empty;
-
         [DllImport("NSProblem.dll", EntryPoint = "createNsProblem")]
         private static extern IntPtr _createNsProblem
             (
@@ -52,9 +50,8 @@ namespace hita.Models
 
         public NSProblem() { }
 
-        public bool Solve()
+        public bool Solve(string Folder)
         {
-            Folder = DateTimeOffset.Now.ToUnixTimeMilliseconds().ToString();
             bool result;
             IntPtr NsProblemPointer = _createNsProblem(Gr,
                                                        Pr,

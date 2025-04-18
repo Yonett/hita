@@ -22,8 +22,12 @@ namespace hita.Views
         private List<double> Values = new List<double>();
         private List<Node> Nodes = new List<Node>();
 
-        private Color ActivePaintTargetBackground = Color.FromArgb(41, 128, 185);
-        private Color InactivePaintTargetBackground = Color.FromArgb(149, 165, 166);
+        private readonly Color ActivePaintTargetBackground = Color.FromArgb(41, 128, 185);
+        private readonly Color ActivePaintTargetForeground = Color.FromArgb(255, 255, 255);
+        private readonly Color InactivePaintTargetBackground = Color.FromArgb(149, 165, 166);
+        private readonly Color InactivePaintTargetForeground = Color.FromArgb(44, 62, 80);
+
+        private readonly Thread? CalculationThread;
 
         public MainForm()
         {
@@ -63,66 +67,79 @@ namespace hita.Views
         {
             if (PaintTarget != PaintTargets.Temperature)
             {
-                UpdatePaintTarget();
+                UpdatePaintTargetControl();
                 PaintTarget = PaintTargets.Temperature;
-                TemperatureLabel.BackColor = ActivePaintTargetBackground;
+                temperatureLabel.BackColor = ActivePaintTargetBackground;
+                temperatureLabel.ForeColor = ActivePaintTargetForeground;
             }
         }
         private void CurrentLabel_Click(object sender, EventArgs e)
         {
             if (PaintTarget != PaintTargets.Current)
             {
-                UpdatePaintTarget();
+                UpdatePaintTargetControl();
                 PaintTarget = PaintTargets.Current;
-                CurrentLabel.BackColor = ActivePaintTargetBackground;
+                currentLabel.BackColor = ActivePaintTargetBackground;
+                currentLabel.ForeColor = ActivePaintTargetForeground;
+
             }
         }
         private void EddyLabel_Click(object sender, EventArgs e)
         {
             if (PaintTarget != PaintTargets.Eddy)
             {
-                UpdatePaintTarget();
+                UpdatePaintTargetControl();
                 PaintTarget = PaintTargets.Eddy;
-                EddyLabel.BackColor = ActivePaintTargetBackground;
+                eddyLabel.BackColor = ActivePaintTargetBackground;
+                eddyLabel.ForeColor = ActivePaintTargetForeground;
+
             }
         }
         private void VxLabel_Click(object sender, EventArgs e)
         {
             if (PaintTarget != PaintTargets.Vx)
             {
-                UpdatePaintTarget();
+                UpdatePaintTargetControl();
                 PaintTarget = PaintTargets.Vx;
                 VxLabel.BackColor = ActivePaintTargetBackground;
+                VxLabel.ForeColor = ActivePaintTargetForeground;
+
             }
         }
         private void VyLabel_Click(object sender, EventArgs e)
         {
             if (PaintTarget != PaintTargets.Vy)
             {
-                UpdatePaintTarget();
+                UpdatePaintTargetControl();
                 PaintTarget = PaintTargets.Vy;
                 VyLabel.BackColor = ActivePaintTargetBackground;
+                VyLabel.ForeColor = ActivePaintTargetForeground;
             }
         }
 
-        private void UpdatePaintTarget()
+        private void UpdatePaintTargetControl()
         {
             switch (PaintTarget)
             {
                 case PaintTargets.Temperature:
-                    TemperatureLabel.BackColor = InactivePaintTargetBackground;
+                    temperatureLabel.BackColor = InactivePaintTargetBackground;
+                    temperatureLabel.ForeColor = InactivePaintTargetForeground;
                     break;
                 case PaintTargets.Current:
-                    CurrentLabel.BackColor = InactivePaintTargetBackground;
+                    currentLabel.BackColor = InactivePaintTargetBackground;
+                    currentLabel.ForeColor = InactivePaintTargetForeground;
                     break;
                 case PaintTargets.Eddy:
-                    EddyLabel.BackColor = InactivePaintTargetBackground;
+                    eddyLabel.BackColor = InactivePaintTargetBackground;
+                    eddyLabel.ForeColor = InactivePaintTargetForeground;
                     break;
                 case PaintTargets.Vx:
                     VxLabel.BackColor = InactivePaintTargetBackground;
+                    VxLabel.ForeColor = InactivePaintTargetForeground;
                     break;
                 case PaintTargets.Vy:
                     VyLabel.BackColor = InactivePaintTargetBackground;
+                    VyLabel.ForeColor = InactivePaintTargetForeground;
                     break;
             }
         }
@@ -147,7 +164,32 @@ namespace hita.Views
 
 
 
-
+        private async void startCalculationButton_Click(object sender, EventArgs e)
+        {
+            //Console.WriteLine("L/H: {0}", LHComboBox.SelectedItem!.ToString());
+            //Console.WriteLine("L: {0}", Convert.ToDouble(LHComboBox.SelectedItem!.ToString()!.Split(":")[0]));
+            //Console.WriteLine("H: {0}", Convert.ToDouble(LHComboBox.SelectedItem!.ToString()!.Split(":")[1]));
+            //Console.WriteLine("Pr: {0}", PrNumeric.Value);
+            //Console.WriteLine("Gr: {0}", GrNumeric.Value);
+            //Console.WriteLine("Nodes horizontally: {0}", horizontalNodesNumeric.Value);
+            //Console.WriteLine("Nodes vertically: {0}", verticalNodesNumeric.Value);
+            //Console.WriteLine("MaxIter: {0}", maxIterNumeric.Value);
+            //Console.WriteLine("w: {0}", wNumeric.Value);
+            startCalculationButton.Enabled = false;
+            Controller.SetParams
+                (
+                    Gr: Convert.ToDouble(GrNumeric.Value),
+                    Pr: Convert.ToDouble(PrNumeric.Value),
+                    Width: Convert.ToDouble(LHComboBox.SelectedItem!.ToString()!.Split(":")[0]),
+                    Height: Convert.ToDouble(LHComboBox.SelectedItem!.ToString()!.Split(":")[1]),
+                    WidthNodesCount: Convert.ToInt32(horizontalNodesNumeric.Value),
+                    HeightNodesCount: Convert.ToInt32(verticalNodesNumeric.Value),
+                    SlaeMaxIter: Convert.ToInt32(maxIterNumeric.Value),
+                    WParam: Convert.ToDouble(wNumeric.Value)
+                );
+            await Controller.SolveProblem();
+            startCalculationButton.Enabled = true;
+        }
     }
 
     public class Node

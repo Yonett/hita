@@ -37,9 +37,9 @@
             flowLayoutPanel14 = new FlowLayoutPanel();
             paintTargetLabel = new Label();
             flowLayoutPanel16 = new FlowLayoutPanel();
-            TemperatureLabel = new Label();
-            CurrentLabel = new Label();
-            EddyLabel = new Label();
+            temperatureLabel = new Label();
+            currentLabel = new Label();
+            eddyLabel = new Label();
             VxLabel = new Label();
             VyLabel = new Label();
             isolinesNumberPanel = new FlowLayoutPanel();
@@ -50,17 +50,17 @@
             solverSettingsCollapseButton = new Button();
             solverSettingsCollapseLabel = new Label();
             flowLayoutPanel5 = new FlowLayoutPanel();
-            label6 = new Label();
-            numericUpDown3 = new NumericUpDown();
+            horizontalNodesLabel = new Label();
+            horizontalNodesNumeric = new NumericUpDown();
             flowLayoutPanel6 = new FlowLayoutPanel();
-            label7 = new Label();
-            numericUpDown4 = new NumericUpDown();
+            verticalNodesLabel = new Label();
+            verticalNodesNumeric = new NumericUpDown();
             flowLayoutPanel10 = new FlowLayoutPanel();
-            label8 = new Label();
-            numericUpDown5 = new NumericUpDown();
+            maxIterLabel = new Label();
+            maxIterNumeric = new NumericUpDown();
             flowLayoutPanel11 = new FlowLayoutPanel();
-            label9 = new Label();
-            numericUpDown6 = new NumericUpDown();
+            wLabel = new Label();
+            wNumeric = new NumericUpDown();
             problemSettingsPanel = new FlowLayoutPanel();
             problemSettingsCollapsePanel = new FlowLayoutPanel();
             problemSettingsCollapseButton = new Button();
@@ -88,13 +88,13 @@
             solverSettingsPanel.SuspendLayout();
             solverSettingsCollapsePanel.SuspendLayout();
             flowLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)horizontalNodesNumeric).BeginInit();
             flowLayoutPanel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown4).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)verticalNodesNumeric).BeginInit();
             flowLayoutPanel10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown5).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)maxIterNumeric).BeginInit();
             flowLayoutPanel11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)numericUpDown6).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)wNumeric).BeginInit();
             problemSettingsPanel.SuspendLayout();
             problemSettingsCollapsePanel.SuspendLayout();
             LHPanel.SuspendLayout();
@@ -208,9 +208,9 @@
             // 
             // flowLayoutPanel16
             // 
-            flowLayoutPanel16.Controls.Add(TemperatureLabel);
-            flowLayoutPanel16.Controls.Add(CurrentLabel);
-            flowLayoutPanel16.Controls.Add(EddyLabel);
+            flowLayoutPanel16.Controls.Add(temperatureLabel);
+            flowLayoutPanel16.Controls.Add(currentLabel);
+            flowLayoutPanel16.Controls.Add(eddyLabel);
             flowLayoutPanel16.Controls.Add(VxLabel);
             flowLayoutPanel16.Controls.Add(VyLabel);
             flowLayoutPanel16.Location = new Point(0, 24);
@@ -219,53 +219,53 @@
             flowLayoutPanel16.Size = new Size(350, 36);
             flowLayoutPanel16.TabIndex = 2;
             // 
-            // TemperatureLabel
+            // temperatureLabel
             // 
-            TemperatureLabel.BackColor = Color.FromArgb(41, 128, 185);
-            TemperatureLabel.BorderStyle = BorderStyle.FixedSingle;
-            TemperatureLabel.Cursor = Cursors.Hand;
-            TemperatureLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            TemperatureLabel.ForeColor = Color.White;
-            TemperatureLabel.Location = new Point(0, 0);
-            TemperatureLabel.Margin = new Padding(0);
-            TemperatureLabel.Name = "TemperatureLabel";
-            TemperatureLabel.Size = new Size(70, 36);
-            TemperatureLabel.TabIndex = 3;
-            TemperatureLabel.Text = "T";
-            TemperatureLabel.TextAlign = ContentAlignment.MiddleCenter;
-            TemperatureLabel.Click += TemperatureLabel_Click;
+            temperatureLabel.BackColor = Color.FromArgb(41, 128, 185);
+            temperatureLabel.BorderStyle = BorderStyle.FixedSingle;
+            temperatureLabel.Cursor = Cursors.Hand;
+            temperatureLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            temperatureLabel.ForeColor = Color.White;
+            temperatureLabel.Location = new Point(0, 0);
+            temperatureLabel.Margin = new Padding(0);
+            temperatureLabel.Name = "temperatureLabel";
+            temperatureLabel.Size = new Size(70, 36);
+            temperatureLabel.TabIndex = 3;
+            temperatureLabel.Text = "T";
+            temperatureLabel.TextAlign = ContentAlignment.MiddleCenter;
+            temperatureLabel.Click += TemperatureLabel_Click;
             // 
-            // CurrentLabel
+            // currentLabel
             // 
-            CurrentLabel.BackColor = Color.FromArgb(149, 165, 166);
-            CurrentLabel.BorderStyle = BorderStyle.FixedSingle;
-            CurrentLabel.Cursor = Cursors.Hand;
-            CurrentLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            CurrentLabel.ForeColor = Color.White;
-            CurrentLabel.Location = new Point(70, 0);
-            CurrentLabel.Margin = new Padding(0);
-            CurrentLabel.Name = "CurrentLabel";
-            CurrentLabel.Size = new Size(70, 36);
-            CurrentLabel.TabIndex = 4;
-            CurrentLabel.Text = "ψ";
-            CurrentLabel.TextAlign = ContentAlignment.MiddleCenter;
-            CurrentLabel.Click += CurrentLabel_Click;
+            currentLabel.BackColor = Color.FromArgb(149, 165, 166);
+            currentLabel.BorderStyle = BorderStyle.FixedSingle;
+            currentLabel.Cursor = Cursors.Hand;
+            currentLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            currentLabel.ForeColor = Color.FromArgb(44, 62, 80);
+            currentLabel.Location = new Point(70, 0);
+            currentLabel.Margin = new Padding(0);
+            currentLabel.Name = "currentLabel";
+            currentLabel.Size = new Size(70, 36);
+            currentLabel.TabIndex = 4;
+            currentLabel.Text = "ψ";
+            currentLabel.TextAlign = ContentAlignment.MiddleCenter;
+            currentLabel.Click += CurrentLabel_Click;
             // 
-            // EddyLabel
+            // eddyLabel
             // 
-            EddyLabel.BackColor = Color.FromArgb(149, 165, 166);
-            EddyLabel.BorderStyle = BorderStyle.FixedSingle;
-            EddyLabel.Cursor = Cursors.Hand;
-            EddyLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            EddyLabel.ForeColor = Color.White;
-            EddyLabel.Location = new Point(140, 0);
-            EddyLabel.Margin = new Padding(0);
-            EddyLabel.Name = "EddyLabel";
-            EddyLabel.Size = new Size(70, 36);
-            EddyLabel.TabIndex = 5;
-            EddyLabel.Text = "ω";
-            EddyLabel.TextAlign = ContentAlignment.MiddleCenter;
-            EddyLabel.Click += EddyLabel_Click;
+            eddyLabel.BackColor = Color.FromArgb(149, 165, 166);
+            eddyLabel.BorderStyle = BorderStyle.FixedSingle;
+            eddyLabel.Cursor = Cursors.Hand;
+            eddyLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            eddyLabel.ForeColor = Color.FromArgb(44, 62, 80);
+            eddyLabel.Location = new Point(140, 0);
+            eddyLabel.Margin = new Padding(0);
+            eddyLabel.Name = "eddyLabel";
+            eddyLabel.Size = new Size(70, 36);
+            eddyLabel.TabIndex = 5;
+            eddyLabel.Text = "ω";
+            eddyLabel.TextAlign = ContentAlignment.MiddleCenter;
+            eddyLabel.Click += EddyLabel_Click;
             // 
             // VxLabel
             // 
@@ -273,7 +273,7 @@
             VxLabel.BorderStyle = BorderStyle.FixedSingle;
             VxLabel.Cursor = Cursors.Hand;
             VxLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            VxLabel.ForeColor = Color.White;
+            VxLabel.ForeColor = Color.FromArgb(44, 62, 80);
             VxLabel.Location = new Point(210, 0);
             VxLabel.Margin = new Padding(0);
             VxLabel.Name = "VxLabel";
@@ -289,7 +289,7 @@
             VyLabel.BorderStyle = BorderStyle.FixedSingle;
             VyLabel.Cursor = Cursors.Hand;
             VyLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            VyLabel.ForeColor = Color.White;
+            VyLabel.ForeColor = Color.FromArgb(44, 62, 80);
             VyLabel.Location = new Point(280, 0);
             VyLabel.Margin = new Padding(0);
             VyLabel.Name = "VyLabel";
@@ -390,8 +390,8 @@
             // 
             // flowLayoutPanel5
             // 
-            flowLayoutPanel5.Controls.Add(label6);
-            flowLayoutPanel5.Controls.Add(numericUpDown3);
+            flowLayoutPanel5.Controls.Add(horizontalNodesLabel);
+            flowLayoutPanel5.Controls.Add(horizontalNodesNumeric);
             flowLayoutPanel5.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel5.Location = new Point(10, 65);
             flowLayoutPanel5.Margin = new Padding(10, 15, 10, 5);
@@ -399,34 +399,36 @@
             flowLayoutPanel5.Size = new Size(350, 60);
             flowLayoutPanel5.TabIndex = 1;
             // 
-            // label6
+            // horizontalNodesLabel
             // 
-            label6.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            label6.ForeColor = Color.FromArgb(61, 61, 61);
-            label6.Location = new Point(0, 0);
-            label6.Margin = new Padding(0);
-            label6.Name = "label6";
-            label6.Size = new Size(350, 24);
-            label6.TabIndex = 1;
-            label6.Text = "Кол-во узлов сетки по горизонтали";
-            label6.TextAlign = ContentAlignment.MiddleLeft;
+            horizontalNodesLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            horizontalNodesLabel.ForeColor = Color.FromArgb(61, 61, 61);
+            horizontalNodesLabel.Location = new Point(0, 0);
+            horizontalNodesLabel.Margin = new Padding(0);
+            horizontalNodesLabel.Name = "horizontalNodesLabel";
+            horizontalNodesLabel.Size = new Size(350, 24);
+            horizontalNodesLabel.TabIndex = 1;
+            horizontalNodesLabel.Text = "Кол-во узлов сетки по горизонтали";
+            horizontalNodesLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // numericUpDown3
+            // horizontalNodesNumeric
             // 
-            numericUpDown3.BorderStyle = BorderStyle.FixedSingle;
-            numericUpDown3.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            numericUpDown3.ForeColor = Color.FromArgb(61, 61, 61);
-            numericUpDown3.Location = new Point(0, 24);
-            numericUpDown3.Margin = new Padding(0);
-            numericUpDown3.Maximum = new decimal(new int[] { 1410065408, 2, 0, 0 });
-            numericUpDown3.Name = "numericUpDown3";
-            numericUpDown3.Size = new Size(350, 27);
-            numericUpDown3.TabIndex = 3;
+            horizontalNodesNumeric.BorderStyle = BorderStyle.FixedSingle;
+            horizontalNodesNumeric.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            horizontalNodesNumeric.ForeColor = Color.FromArgb(61, 61, 61);
+            horizontalNodesNumeric.Location = new Point(0, 24);
+            horizontalNodesNumeric.Margin = new Padding(0);
+            horizontalNodesNumeric.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            horizontalNodesNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            horizontalNodesNumeric.Name = "horizontalNodesNumeric";
+            horizontalNodesNumeric.Size = new Size(350, 27);
+            horizontalNodesNumeric.TabIndex = 3;
+            horizontalNodesNumeric.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // flowLayoutPanel6
             // 
-            flowLayoutPanel6.Controls.Add(label7);
-            flowLayoutPanel6.Controls.Add(numericUpDown4);
+            flowLayoutPanel6.Controls.Add(verticalNodesLabel);
+            flowLayoutPanel6.Controls.Add(verticalNodesNumeric);
             flowLayoutPanel6.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel6.Location = new Point(10, 135);
             flowLayoutPanel6.Margin = new Padding(10, 5, 10, 5);
@@ -434,34 +436,36 @@
             flowLayoutPanel6.Size = new Size(350, 60);
             flowLayoutPanel6.TabIndex = 2;
             // 
-            // label7
+            // verticalNodesLabel
             // 
-            label7.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            label7.ForeColor = Color.FromArgb(61, 61, 61);
-            label7.Location = new Point(0, 0);
-            label7.Margin = new Padding(0);
-            label7.Name = "label7";
-            label7.Size = new Size(350, 24);
-            label7.TabIndex = 1;
-            label7.Text = "Кол-во узлов сетки по вертикали";
-            label7.TextAlign = ContentAlignment.MiddleLeft;
+            verticalNodesLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            verticalNodesLabel.ForeColor = Color.FromArgb(61, 61, 61);
+            verticalNodesLabel.Location = new Point(0, 0);
+            verticalNodesLabel.Margin = new Padding(0);
+            verticalNodesLabel.Name = "verticalNodesLabel";
+            verticalNodesLabel.Size = new Size(350, 24);
+            verticalNodesLabel.TabIndex = 1;
+            verticalNodesLabel.Text = "Кол-во узлов сетки по вертикали";
+            verticalNodesLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // numericUpDown4
+            // verticalNodesNumeric
             // 
-            numericUpDown4.BorderStyle = BorderStyle.FixedSingle;
-            numericUpDown4.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            numericUpDown4.ForeColor = Color.FromArgb(61, 61, 61);
-            numericUpDown4.Location = new Point(0, 24);
-            numericUpDown4.Margin = new Padding(0);
-            numericUpDown4.Maximum = new decimal(new int[] { 1410065408, 2, 0, 0 });
-            numericUpDown4.Name = "numericUpDown4";
-            numericUpDown4.Size = new Size(350, 27);
-            numericUpDown4.TabIndex = 3;
+            verticalNodesNumeric.BorderStyle = BorderStyle.FixedSingle;
+            verticalNodesNumeric.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            verticalNodesNumeric.ForeColor = Color.FromArgb(61, 61, 61);
+            verticalNodesNumeric.Location = new Point(0, 24);
+            verticalNodesNumeric.Margin = new Padding(0);
+            verticalNodesNumeric.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
+            verticalNodesNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            verticalNodesNumeric.Name = "verticalNodesNumeric";
+            verticalNodesNumeric.Size = new Size(350, 27);
+            verticalNodesNumeric.TabIndex = 3;
+            verticalNodesNumeric.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // flowLayoutPanel10
             // 
-            flowLayoutPanel10.Controls.Add(label8);
-            flowLayoutPanel10.Controls.Add(numericUpDown5);
+            flowLayoutPanel10.Controls.Add(maxIterLabel);
+            flowLayoutPanel10.Controls.Add(maxIterNumeric);
             flowLayoutPanel10.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel10.Location = new Point(10, 205);
             flowLayoutPanel10.Margin = new Padding(10, 5, 10, 5);
@@ -469,34 +473,36 @@
             flowLayoutPanel10.Size = new Size(350, 60);
             flowLayoutPanel10.TabIndex = 3;
             // 
-            // label8
+            // maxIterLabel
             // 
-            label8.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            label8.ForeColor = Color.FromArgb(61, 61, 61);
-            label8.Location = new Point(0, 0);
-            label8.Margin = new Padding(0);
-            label8.Name = "label8";
-            label8.Size = new Size(350, 24);
-            label8.TabIndex = 1;
-            label8.Text = "Максимальное число итераций";
-            label8.TextAlign = ContentAlignment.MiddleLeft;
+            maxIterLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            maxIterLabel.ForeColor = Color.FromArgb(61, 61, 61);
+            maxIterLabel.Location = new Point(0, 0);
+            maxIterLabel.Margin = new Padding(0);
+            maxIterLabel.Name = "maxIterLabel";
+            maxIterLabel.Size = new Size(350, 24);
+            maxIterLabel.TabIndex = 1;
+            maxIterLabel.Text = "Максимальное число итераций";
+            maxIterLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // numericUpDown5
+            // maxIterNumeric
             // 
-            numericUpDown5.BorderStyle = BorderStyle.FixedSingle;
-            numericUpDown5.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            numericUpDown5.ForeColor = Color.FromArgb(61, 61, 61);
-            numericUpDown5.Location = new Point(0, 24);
-            numericUpDown5.Margin = new Padding(0);
-            numericUpDown5.Maximum = new decimal(new int[] { 1410065408, 2, 0, 0 });
-            numericUpDown5.Name = "numericUpDown5";
-            numericUpDown5.Size = new Size(350, 27);
-            numericUpDown5.TabIndex = 3;
+            maxIterNumeric.BorderStyle = BorderStyle.FixedSingle;
+            maxIterNumeric.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            maxIterNumeric.ForeColor = Color.FromArgb(61, 61, 61);
+            maxIterNumeric.Location = new Point(0, 24);
+            maxIterNumeric.Margin = new Padding(0);
+            maxIterNumeric.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            maxIterNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            maxIterNumeric.Name = "maxIterNumeric";
+            maxIterNumeric.Size = new Size(350, 27);
+            maxIterNumeric.TabIndex = 3;
+            maxIterNumeric.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // flowLayoutPanel11
             // 
-            flowLayoutPanel11.Controls.Add(label9);
-            flowLayoutPanel11.Controls.Add(numericUpDown6);
+            flowLayoutPanel11.Controls.Add(wLabel);
+            flowLayoutPanel11.Controls.Add(wNumeric);
             flowLayoutPanel11.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel11.Location = new Point(10, 275);
             flowLayoutPanel11.Margin = new Padding(10, 5, 10, 5);
@@ -504,33 +510,33 @@
             flowLayoutPanel11.Size = new Size(350, 60);
             flowLayoutPanel11.TabIndex = 4;
             // 
-            // label9
+            // wLabel
             // 
-            label9.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            label9.ForeColor = Color.FromArgb(61, 61, 61);
-            label9.Location = new Point(0, 0);
-            label9.Margin = new Padding(0);
-            label9.Name = "label9";
-            label9.Size = new Size(350, 24);
-            label9.TabIndex = 1;
-            label9.Text = "Коэффициент релаксации";
-            label9.TextAlign = ContentAlignment.MiddleLeft;
+            wLabel.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            wLabel.ForeColor = Color.FromArgb(61, 61, 61);
+            wLabel.Location = new Point(0, 0);
+            wLabel.Margin = new Padding(0);
+            wLabel.Name = "wLabel";
+            wLabel.Size = new Size(350, 24);
+            wLabel.TabIndex = 1;
+            wLabel.Text = "Коэффициент релаксации";
+            wLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // numericUpDown6
+            // wNumeric
             // 
-            numericUpDown6.BorderStyle = BorderStyle.FixedSingle;
-            numericUpDown6.DecimalPlaces = 2;
-            numericUpDown6.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            numericUpDown6.ForeColor = Color.FromArgb(61, 61, 61);
-            numericUpDown6.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
-            numericUpDown6.Location = new Point(0, 24);
-            numericUpDown6.Margin = new Padding(0);
-            numericUpDown6.Maximum = new decimal(new int[] { 100, 0, 0, 131072 });
-            numericUpDown6.Minimum = new decimal(new int[] { 1, 0, 0, 131072 });
-            numericUpDown6.Name = "numericUpDown6";
-            numericUpDown6.Size = new Size(350, 27);
-            numericUpDown6.TabIndex = 3;
-            numericUpDown6.Value = new decimal(new int[] { 1, 0, 0, 131072 });
+            wNumeric.BorderStyle = BorderStyle.FixedSingle;
+            wNumeric.DecimalPlaces = 2;
+            wNumeric.Font = new Font("Verdana", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            wNumeric.ForeColor = Color.FromArgb(61, 61, 61);
+            wNumeric.Increment = new decimal(new int[] { 1, 0, 0, 131072 });
+            wNumeric.Location = new Point(0, 24);
+            wNumeric.Margin = new Padding(0);
+            wNumeric.Maximum = new decimal(new int[] { 100, 0, 0, 131072 });
+            wNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 131072 });
+            wNumeric.Name = "wNumeric";
+            wNumeric.Size = new Size(350, 27);
+            wNumeric.TabIndex = 3;
+            wNumeric.Value = new decimal(new int[] { 1, 0, 0, 131072 });
             // 
             // problemSettingsPanel
             // 
@@ -717,6 +723,7 @@
             startCalculationButton.TabIndex = 0;
             startCalculationButton.Text = "Начать вычисления";
             startCalculationButton.UseVisualStyleBackColor = true;
+            startCalculationButton.Click += startCalculationButton_Click;
             // 
             // cancelCalculationButton
             // 
@@ -764,13 +771,13 @@
             solverSettingsPanel.ResumeLayout(false);
             solverSettingsCollapsePanel.ResumeLayout(false);
             flowLayoutPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)numericUpDown3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)horizontalNodesNumeric).EndInit();
             flowLayoutPanel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)numericUpDown4).EndInit();
+            ((System.ComponentModel.ISupportInitialize)verticalNodesNumeric).EndInit();
             flowLayoutPanel10.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)numericUpDown5).EndInit();
+            ((System.ComponentModel.ISupportInitialize)maxIterNumeric).EndInit();
             flowLayoutPanel11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)numericUpDown6).EndInit();
+            ((System.ComponentModel.ISupportInitialize)wNumeric).EndInit();
             problemSettingsPanel.ResumeLayout(false);
             problemSettingsCollapsePanel.ResumeLayout(false);
             LHPanel.ResumeLayout(false);
@@ -803,17 +810,17 @@
         private Label problemSettingsCollapseLabel;
         private Label LHLabel;
         private ComboBox LHComboBox;
-        private Label label6;
-        private Label label7;
-        private Label label8;
-        private Label label9;
+        private Label horizontalNodesLabel;
+        private Label verticalNodesLabel;
+        private Label maxIterLabel;
+        private Label wLabel;
         private Label PrLabel;
         private Label GrLabel;
         private NumericUpDown PrNumeric;
-        private NumericUpDown numericUpDown3;
-        private NumericUpDown numericUpDown4;
-        private NumericUpDown numericUpDown5;
-        private NumericUpDown numericUpDown6;
+        private NumericUpDown horizontalNodesNumeric;
+        private NumericUpDown verticalNodesNumeric;
+        private NumericUpDown maxIterNumeric;
+        private NumericUpDown wNumeric;
         private NumericUpDown GrNumeric;
         private FlowLayoutPanel paintSettingsPanel;
         private FlowLayoutPanel paintSettingsCollapsePanel;
@@ -825,9 +832,9 @@
         private Label isolinesNumberLabel;
         private NumericUpDown isolinesNumberNumeric;
         private FlowLayoutPanel flowLayoutPanel16;
-        private Label TemperatureLabel;
-        private Label CurrentLabel;
-        private Label EddyLabel;
+        private Label temperatureLabel;
+        private Label currentLabel;
+        private Label eddyLabel;
         private Label VxLabel;
         private Label VyLabel;
         private FlowLayoutPanel actionPanel;
