@@ -583,22 +583,29 @@ slae* smplMesh::genMatrix()
 //в консоль
 void smplMesh::toStream(ostream& out)
 {
-	out << "\n" << m_nodes.size() << "\n";
+	//out << "\n" << m_nodes.size() << "\n";
+	//for (list<smplMeshNode*>::const_iterator item = m_nodes.begin(); item != m_nodes.end(); ++item)
+	//	out << *(*item) << "\n";
+
+	//out << m_facets.size() << "\n";
+	//for (list<smplMeshFacet*>::const_iterator item = m_facets.begin(); item != m_facets.end(); ++item)
+	//	out << *(*item) << "\n";
+
+	//out << m_materials.size() << "\n";
+	//for(map<unsigned int, meshMaterial>::const_iterator item = m_materials.begin(); item != m_materials.end(); ++item)
+	//	out << (*item).first << "\t" << (*item).second << "\n";
+
+	//out << m_elements.size() << "\n";
+
+	//for (list<smplMeshElement*>::const_iterator item = m_elements.begin(); item != m_elements.end(); ++item)
+	//	out << *(*item) << "\n";
+
 	for (list<smplMeshNode*>::const_iterator item = m_nodes.begin(); item != m_nodes.end(); ++item)
-		out << *(*item) << "\n";
-
-	out << m_facets.size() << "\n";
-	for (list<smplMeshFacet*>::const_iterator item = m_facets.begin(); item != m_facets.end(); ++item)
-		out << *(*item) << "\n";
-
-	out << m_materials.size() << "\n";
-	for(map<unsigned int, meshMaterial>::const_iterator item = m_materials.begin(); item != m_materials.end(); ++item)
-		out << (*item).first << "\t" << (*item).second << "\n";
-
-	out << m_elements.size() << "\n";
-
-	for (list<smplMeshElement*>::const_iterator item = m_elements.begin(); item != m_elements.end(); ++item)
-		out << *(*item) << "\n";
+	{
+		for (size_t i = 0; i < (*item)->getCoord().size(); ++i)
+			out << (*item)->getCoord()[i] << "\t";
+		out << "\n";
+	}
 
 	return;
 }

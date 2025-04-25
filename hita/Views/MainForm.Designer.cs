@@ -118,7 +118,11 @@
             glControl.SharedContext = null;
             glControl.Size = new Size(784, 761);
             glControl.TabIndex = 0;
+            glControl.Load += glControl_Load;
             glControl.Paint += glControl_Paint;
+            glControl.MouseDown += glControl_MouseDown;
+            glControl.MouseMove += glControl_MouseMove;
+            glControl.MouseWheel += glControl_MouseWheel;
             // 
             // settingsPanel
             // 
@@ -727,6 +731,7 @@
             // 
             // cancelCalculationButton
             // 
+            cancelCalculationButton.Enabled = false;
             cancelCalculationButton.FlatStyle = FlatStyle.Flat;
             cancelCalculationButton.Font = new Font("Verdana", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
             cancelCalculationButton.ForeColor = Color.FromArgb(61, 61, 61);

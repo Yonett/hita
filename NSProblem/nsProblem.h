@@ -416,6 +416,18 @@ public:
 		getMesh().toStream(outVy, getVy());
 		outVy.close();
 
+		path.str("");
+		path.clear();
+		path << folder << "\\" << "Nodes.txt";
+		ofstream outNodes(path.str());
+
+		//ofstream outVy("Result\\Vy.txt");
+		outNodes.precision(16);
+		outNodes.setf(ios_base::scientific);
+
+		getMesh().toStream(outNodes);
+		outNodes.close();
+
 		return;
 	}
 
