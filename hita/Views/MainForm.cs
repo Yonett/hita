@@ -1,6 +1,10 @@
-﻿using hita.Controllers;
+﻿using System.Drawing;
+using System.Globalization;
+using System.Xml.Linq;
+using hita.Controllers;
 using hita.Geometric;
 using OpenTK.Graphics.OpenGL;
+using static System.Windows.Forms.LinkLabel;
 
 namespace hita.Views
 {
@@ -30,10 +34,13 @@ namespace hita.Views
 
         private List<double> Values = new List<double>();
         private List<Element> Elements = new List<Element>();
+        private List<Node> Nodes = new List<Node>();
         private List<Line> Lines = new List<Line>();
 
         public double ValueMax = 0.0;
         public double ValueMin = 0.0;
+        public double ValuesRange = 0.0;
+        public double HSVValue = 0.0;
 
         private double GLScale { get; set; } = 1.0;
         private double GLTranslateX { get; set; } = 0.0;
@@ -43,6 +50,7 @@ namespace hita.Views
 
         public MainForm()
         {
+            CultureInfo.CurrentCulture = new CultureInfo("en-EN", false);
             InitializeComponent();
             LHComboBox.SelectedIndex = 5;
         }
@@ -84,6 +92,12 @@ namespace hita.Views
                 temperatureLabel.BackColor = ActivePaintTargetBackground;
                 temperatureLabel.ForeColor = ActivePaintTargetForeground;
                 Values = Controller.TemperatureValues;
+                Lines = Controller.TemperatueLines;
+
+                ValueMax = Controller.TemperatureMax;
+                ValueMin = Controller.TemperatureMin;
+                ValuesRange = Controller.TemperatureRange;
+                glControl.Invalidate();
             }
         }
         private void CurrentLabel_Click(object sender, EventArgs e)
@@ -95,6 +109,12 @@ namespace hita.Views
                 currentLabel.BackColor = ActivePaintTargetBackground;
                 currentLabel.ForeColor = ActivePaintTargetForeground;
                 Values = Controller.CurrentValues;
+                Lines = Controller.CurrentLines;
+
+                ValueMax = Controller.CurrentMax;
+                ValueMin = Controller.CurrentMin;
+                ValuesRange = Controller.CurrentRange;
+                glControl.Invalidate();
             }
         }
         private void EddyLabel_Click(object sender, EventArgs e)
@@ -106,6 +126,12 @@ namespace hita.Views
                 eddyLabel.BackColor = ActivePaintTargetBackground;
                 eddyLabel.ForeColor = ActivePaintTargetForeground;
                 Values = Controller.EddyValues;
+                Lines = Controller.EddyLines;
+
+                ValueMax = Controller.EddyMax;
+                ValueMin = Controller.EddyMin;
+                ValuesRange = Controller.EddyRange;
+                glControl.Invalidate();
             }
         }
         private void VxLabel_Click(object sender, EventArgs e)
@@ -117,6 +143,12 @@ namespace hita.Views
                 VxLabel.BackColor = ActivePaintTargetBackground;
                 VxLabel.ForeColor = ActivePaintTargetForeground;
                 Values = Controller.VxValues;
+                Lines = Controller.VxLines;
+
+                ValueMax = Controller.VxMax;
+                ValueMin = Controller.VxMin;
+                ValuesRange = Controller.VxRange;
+                glControl.Invalidate();
             }
         }
         private void VyLabel_Click(object sender, EventArgs e)
@@ -127,7 +159,14 @@ namespace hita.Views
                 PaintTarget = PaintTargets.Vy;
                 VyLabel.BackColor = ActivePaintTargetBackground;
                 VyLabel.ForeColor = ActivePaintTargetForeground;
+
                 Values = Controller.VyValues;
+                Lines = Controller.VyLines;
+
+                ValueMax = Controller.VyMax;
+                ValueMin = Controller.VyMin;
+                ValuesRange = Controller.VyRange;
+                glControl.Invalidate();
             }
         }
 
@@ -161,13 +200,38 @@ namespace hita.Views
         #endregion
 
         #region Paint
+
+        public void GetColorByFuncValue(float value)
+        {
+            float r = 0, g = 0, b = 0;
+            float h = value / 360;
+
+            int i = (int)Math.Floor(h * 6);
+            float f = h * 6 - i;
+            float q = (1 - f);
+            float t = (1 - q);
+
+            switch (i % 6)
+            {
+                case 0: r = 1; g = t; b = 0; break;
+                case 1: r = q; g = 1; b = 0; break;
+                case 2: r = 0; g = 1; b = t; break;
+                case 3: r = 0; g = q; b = 1; break;
+                case 4: r = t; g = 0; b = 1; break;
+                case 5: r = 1; g = 0; b = q; break;
+            }
+            GL.Color3(r, g, b);
+        }
+
         private void glControl_Paint(object sender, PaintEventArgs e)
         {
             glControl.MakeCurrent();
 
             GL.LoadIdentity();
 
-            GL.ClearColor(1.0f, 0.889f, 1.0f, 1.0f);
+            GL.Enable(EnableCap.LineSmooth);
+
+            GL.ClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
             GL.Scale(GLScale, GLScale, 1);
@@ -175,11 +239,40 @@ namespace hita.Views
 
             GL.Color3(0, 0, 0);
 
-            GL.Begin(PrimitiveType.Triangles);
+            foreach (Element elem in Elements)
+            {
+                GL.Begin(PrimitiveType.Quads);
+                HSVValue = 240 * (1.0 - Values[elem.node_numbers[0]] / ValuesRange);
+                //GL.Color3(color, color, color);
+                GetColorByFuncValue((float)HSVValue);
+                GL.Vertex2(Nodes[elem.node_numbers[0]].x, Nodes[elem.node_numbers[0]].y);
 
-                GL.Vertex2(0.5, 0.5);
-                GL.Vertex2(1.0, 0.5);
-                GL.Vertex2(0.0, 0.0);
+                HSVValue = 240 * (1.0 - Values[elem.node_numbers[1]] / ValuesRange);
+                //GL.Color3(color, color, color);
+                GetColorByFuncValue((float)HSVValue);
+                GL.Vertex2(Nodes[elem.node_numbers[1]].x, Nodes[elem.node_numbers[1]].y);
+
+                HSVValue = 240 * (1.0 - Values[elem.node_numbers[3]] / ValuesRange);
+                //GL.Color3(color, color, color);
+                GetColorByFuncValue((float)HSVValue);
+                GL.Vertex2(Nodes[elem.node_numbers[3]].x, Nodes[elem.node_numbers[3]].y);
+
+                HSVValue = 240 * (1.0 - Values[elem.node_numbers[2]] / ValuesRange);
+                //GL.Color3(color, color, color);
+                GetColorByFuncValue((float)HSVValue);
+                GL.Vertex2(Nodes[elem.node_numbers[2]].x, Nodes[elem.node_numbers[2]].y);
+                GL.End();
+            }
+
+            GL.Color3(0.0f, 0.0f, 0.0f);
+            GL.LineWidth(1);
+            GL.Begin(PrimitiveType.Lines);
+
+            foreach (Line line in Lines)
+            {
+                GL.Vertex2(line.M.x, line.M.y);
+                GL.Vertex2(line.N.x, line.N.y);
+            }
 
             GL.End();
 
@@ -246,15 +339,19 @@ namespace hita.Views
         private async void startCalculationButton_Click(object sender, EventArgs e)
         {
             startCalculationButton.Enabled = false;
+
             Controller.NumberOfIsolines = (int)isolinesNumberNumeric.Value;
+            Controller.xs = (int)horizontalNodesNumeric.Value;
+            Controller.ys = (int)verticalNodesNumeric.Value;
+
             Controller.SetParams
                 (
                     Gr: Convert.ToDouble(GrNumeric.Value),
                     Pr: Convert.ToDouble(PrNumeric.Value),
                     Width: Convert.ToDouble(LHComboBox.SelectedItem!.ToString()!.Split(":")[0]),
                     Height: Convert.ToDouble(LHComboBox.SelectedItem!.ToString()!.Split(":")[1]),
-                    WidthNodesCount: Convert.ToInt32(horizontalNodesNumeric.Value),
-                    HeightNodesCount: Convert.ToInt32(verticalNodesNumeric.Value),
+                    WidthNodesCount: Convert.ToInt32(horizontalNodesNumeric.Value) - 1,
+                    HeightNodesCount: Convert.ToInt32(verticalNodesNumeric.Value) - 1,
                     SlaeMaxIter: Convert.ToInt32(maxIterNumeric.Value),
                     WParam: Convert.ToDouble(wNumeric.Value)
                 );
@@ -262,29 +359,51 @@ namespace hita.Views
             await Task.Run(() =>
             {
                 Controller.SolveProblem();
-                Controller.ReadResults();
             });            
 
-            startCalculationButton.Enabled = true;
+            Elements = Controller.Elements;
+            Nodes = Controller.Nodes;
 
             switch (PaintTarget)
             {
                 case PaintTargets.Temperature:
                     Values = Controller.TemperatureValues;
+                    Lines = Controller.TemperatueLines;
+                    ValueMax = Controller.TemperatureMax;
+                    ValueMin = Controller.TemperatureMin;
+                    ValuesRange = Controller.TemperatureRange;
                     break;
                 case PaintTargets.Current:
                     Values = Controller.CurrentValues;
+                    Lines = Controller.CurrentLines;
+                    ValueMax = Controller.CurrentMax;
+                    ValueMin = Controller.CurrentMin;
+                    ValuesRange = Controller.CurrentRange;
                     break;
                 case PaintTargets.Eddy:
                     Values = Controller.EddyValues;
+                    Lines = Controller.EddyLines;
+                    ValueMax = Controller.EddyMax;
+                    ValueMin = Controller.EddyMin;
+                    ValuesRange = Controller.EddyRange;
                     break;
                 case PaintTargets.Vx:
                     Values = Controller.VxValues;
+                    Lines = Controller.VxLines;
+                    ValueMax = Controller.VxMax;
+                    ValueMin = Controller.VxMin;
+                    ValuesRange = Controller.VxRange;
                     break;
                 case PaintTargets.Vy:
                     Values = Controller.VyValues;
+                    Lines = Controller.VyLines;
+                    ValueMax = Controller.VyMax;
+                    ValueMin = Controller.VyMin;
+                    ValuesRange = Controller.VyRange;
                     break;
             }
+            startCalculationButton.Enabled = true;
+            glControl.Invalidate();
         }
     }
 }
