@@ -630,6 +630,7 @@
             LHComboBox.Name = "LHComboBox";
             LHComboBox.Size = new Size(350, 26);
             LHComboBox.TabIndex = 1;
+            LHComboBox.SelectedIndexChanged += LHComboBox_SelectedIndexChanged;
             // 
             // PrPanel
             // 

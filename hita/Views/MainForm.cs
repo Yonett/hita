@@ -1,10 +1,7 @@
-﻿using System.Drawing;
-using System.Globalization;
-using System.Xml.Linq;
+﻿using System.Globalization;
 using hita.Controllers;
 using hita.Geometric;
 using OpenTK.Graphics.OpenGL;
-using static System.Windows.Forms.LinkLabel;
 
 namespace hita.Views
 {
@@ -41,6 +38,8 @@ namespace hita.Views
         public double ValueMin = 0.0;
         public double ValuesRange = 0.0;
         public double HSVValue = 0.0;
+        public double XMax = 1.0;
+        public double YMax = 1.0;
 
         private double GLScale { get; set; } = 1.0;
         private double GLTranslateX { get; set; } = 0.0;
@@ -231,6 +230,9 @@ namespace hita.Views
 
             GL.Enable(EnableCap.LineSmooth);
 
+            GL.Enable(EnableCap.Blend);
+            GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+
             GL.ClearColor(1.0f, 1.0f, 1.0f, 1.0f);
             GL.Clear(ClearBufferMask.ColorBufferBit);
 
@@ -243,22 +245,18 @@ namespace hita.Views
             {
                 GL.Begin(PrimitiveType.Quads);
                 HSVValue = 240 * (1.0 - Values[elem.node_numbers[0]] / ValuesRange);
-                //GL.Color3(color, color, color);
                 GetColorByFuncValue((float)HSVValue);
                 GL.Vertex2(Nodes[elem.node_numbers[0]].x, Nodes[elem.node_numbers[0]].y);
 
                 HSVValue = 240 * (1.0 - Values[elem.node_numbers[1]] / ValuesRange);
-                //GL.Color3(color, color, color);
                 GetColorByFuncValue((float)HSVValue);
                 GL.Vertex2(Nodes[elem.node_numbers[1]].x, Nodes[elem.node_numbers[1]].y);
 
                 HSVValue = 240 * (1.0 - Values[elem.node_numbers[3]] / ValuesRange);
-                //GL.Color3(color, color, color);
                 GetColorByFuncValue((float)HSVValue);
                 GL.Vertex2(Nodes[elem.node_numbers[3]].x, Nodes[elem.node_numbers[3]].y);
 
                 HSVValue = 240 * (1.0 - Values[elem.node_numbers[2]] / ValuesRange);
-                //GL.Color3(color, color, color);
                 GetColorByFuncValue((float)HSVValue);
                 GL.Vertex2(Nodes[elem.node_numbers[2]].x, Nodes[elem.node_numbers[2]].y);
                 GL.End();
@@ -266,6 +264,7 @@ namespace hita.Views
 
             GL.Color3(0.0f, 0.0f, 0.0f);
             GL.LineWidth(1);
+
             GL.Begin(PrimitiveType.Lines);
 
             foreach (Line line in Lines)
@@ -273,6 +272,17 @@ namespace hita.Views
                 GL.Vertex2(line.M.x, line.M.y);
                 GL.Vertex2(line.N.x, line.N.y);
             }
+
+            GL.End();
+
+            GL.LineWidth(2);
+
+            GL.Begin(PrimitiveType.LineLoop);
+
+                GL.Vertex2(0.0, 0.0);
+                GL.Vertex2(XMax, 0.0);
+                GL.Vertex2(XMax, YMax);
+                GL.Vertex2(0.0, YMax);
 
             GL.End();
 
@@ -340,7 +350,7 @@ namespace hita.Views
         {
             startCalculationButton.Enabled = false;
 
-            Controller.NumberOfIsolines = (int)isolinesNumberNumeric.Value;
+            Controller.NumberOfIsolines = (int)isolinesNumberNumeric.Value + 1;
             Controller.xs = (int)horizontalNodesNumeric.Value;
             Controller.ys = (int)verticalNodesNumeric.Value;
 
@@ -348,8 +358,8 @@ namespace hita.Views
                 (
                     Gr: Convert.ToDouble(GrNumeric.Value),
                     Pr: Convert.ToDouble(PrNumeric.Value),
-                    Width: Convert.ToDouble(LHComboBox.SelectedItem!.ToString()!.Split(":")[0]),
-                    Height: Convert.ToDouble(LHComboBox.SelectedItem!.ToString()!.Split(":")[1]),
+                    Width: XMax,
+                    Height: YMax,
                     WidthNodesCount: Convert.ToInt32(horizontalNodesNumeric.Value) - 1,
                     HeightNodesCount: Convert.ToInt32(verticalNodesNumeric.Value) - 1,
                     SlaeMaxIter: Convert.ToInt32(maxIterNumeric.Value),
@@ -359,7 +369,7 @@ namespace hita.Views
             await Task.Run(() =>
             {
                 Controller.SolveProblem();
-            });            
+            });
 
             Elements = Controller.Elements;
             Nodes = Controller.Nodes;
@@ -403,7 +413,14 @@ namespace hita.Views
                     break;
             }
             startCalculationButton.Enabled = true;
-            glControl.Invalidate();
+            glControl.Refresh();
+        }
+
+        private void LHComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            XMax = Convert.ToDouble(LHComboBox.SelectedItem!.ToString()!.Split(":")[0]);
+            YMax = Convert.ToDouble(LHComboBox.SelectedItem!.ToString()!.Split(":")[1]);
+            glControl.Refresh();
         }
     }
 }
